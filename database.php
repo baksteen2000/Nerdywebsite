@@ -11,6 +11,7 @@ function connectToDatabase() {
         $DatabaseAvailable = true;
     } catch (mysqli_sql_exception $e) {
         $DatabaseAvailable = false;
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         try {
             $Connection = mysqli_connect("10.0.1.3:3306", "webshopgebruiker", "gebruiker", "nerdygadgets");
             mysqli_set_charset($Connection, 'latin1');
@@ -38,6 +39,7 @@ function connectToDatabase_admin() {
         $DatabaseAvailable = true;
     } catch (mysqli_sql_exception $e) {
         $DatabaseAvailable = false;
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
         try {
             $Connection = mysqli_connect("10.0.1.3:3306", "client", "Banaan!", "nerdygadgets");
             mysqli_set_charset($Connection, 'latin1');
