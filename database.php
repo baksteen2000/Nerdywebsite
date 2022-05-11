@@ -13,6 +13,7 @@ function connectToDatabase() {
         $DatabaseAvailable = false;
         try {
             $Connection = mysqli_connect("10.0.1.3:3306", "webshopgebruiker", "gebruiker", "nerdygadgets");
+            mysqli_set_charset($Connection, 'latin1');
             $DatabaseAvailable = true;
         } catch (mysqli_sql_exception $e) {
             $DatabaseAvailable = false;
@@ -39,6 +40,7 @@ function connectToDatabase_admin() {
         $DatabaseAvailable = false;
         try {
             $Connection = mysqli_connect("10.0.1.3:3306", "client", "Banaan!", "nerdygadgets");
+            mysqli_set_charset($Connection, 'latin1');
             $DatabaseAvailable = true;
         } catch (mysqli_sql_exception $e) {
             $DatabaseAvailable = false;
