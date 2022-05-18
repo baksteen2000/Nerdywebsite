@@ -55,6 +55,38 @@ function connectToDatabase_admin() {
 
     return $Connection;
 }
+
+// Deze functie vertels met welke database de website verbonden is
+function welkeDatabase() {
+    $Connection = mysqli_init();
+    mysqli_options($Connection, MYSQLI_OPT_CONNECT_TIMEOUT, 1);
+
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT); // Set MySQLi to throw exceptions
+    try {
+        mysqli_real_connect($Connection,"10.0.1.2:3306", "webshopgebruiker", "gebruiker", "nerdygadgets");
+        mysqli_set_charset($Connection, 'latin1');
+        $DatabaseAvailable = true;
+        $Database = ('10.0.1.2 (1)');
+    } catch (Exception $e) {
+        $DatabaseAvailable = false;
+        $Database = ('geen verbinding met de databases');
+        try {
+            mysqli_real_connect($Connection,"10.0.1.3:3306", "webshopgebruiker", "gebruiker", "nerdygadgets");
+            mysqli_set_charset($Connection, 'latin1');
+            $DatabaseAvailable = true;
+            $Database = ('10.0.1.3 (2)');
+        } catch (Exception $e) {
+            $DatabaseAvailable = false;
+            $Database = ('geen verbinding met een databases');
+        }
+    }
+    if (!$DatabaseAvailable) {
+        ?><h2>Website wordt op dit moment onderhouden.</h2><?php
+        die();
+    }
+
+    return $Database;
+}
 // Deze functie maakt verbinding met de database als de ROOT user
 
 function getHeaderStockGroups($databaseConnection) {
